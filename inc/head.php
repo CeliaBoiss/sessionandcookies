@@ -1,3 +1,14 @@
+<?php session_start();?>
+<?php
+if(!empty($_POST['unlog']) && $_POST['unlog'] === 'delete') {
+  if (!empty($_SESSION)) {
+    $_SESSION = array();
+    session_destroy();
+    unset($_SESSION);
+    header("Location: index.php");
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +59,6 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container-fluid text-right">
-        <strong>Hello Wilder !</strong>
+        <strong>Hello <?php if(empty($_SESSION['login'])) {echo 'Wilder';} else {echo $_SESSION['login'];}?> !</strong>
     </div>
 </header>

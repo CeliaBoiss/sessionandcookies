@@ -1,4 +1,9 @@
 <footer>
+    <?php if (!empty($_SESSION)) {?>
+    <form method="POST">
+        <button name="unlog" value="delete">Unlog</button>
+    </form>
+    <?php }; ?>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
 

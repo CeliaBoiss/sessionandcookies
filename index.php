@@ -1,5 +1,27 @@
 <?php require 'inc/data/products.php'; ?>
 <?php require 'inc/head.php'; ?>
+<?php
+if(!empty($_SESSION['login'])) {
+    if(isset($_GET["add_to_cart"]))
+    {
+        $user = $_SESSION['login'];
+        if(isset($_COOKIE[$user]))
+        {
+            $cookieData = stripslashes($_COOKIE[$user]);
+            $cartData = json_decode($cookieData, true);
+        }
+        else
+        {
+            $cartData = [];
+        }
+
+        $cartData[] = [$_GET["add_to_cart"] => $_GET["add_to_cart"]];
+
+        $item_data = json_encode($cartData);
+        setcookie($user, $item_data, time() + (60 * 30));
+    }
+}
+?>
 <section class="cookies container-fluid">
     <div class="row">
         <?php foreach ($catalog as $id => $cookie) { ?>
